@@ -40,7 +40,24 @@ app.get("/", (req, res) => {
 });
 
 // POST route for audio file processing (handles audio uploads and generation)
-app.post("/api/generate-podcast", upload.single("audio"), generatePodcast); // Use the upload middleware
+app.post("/api/generate-podcast", upload.single("audio"), (req, res) => {
+    console.log("Uploaded file details:", req.file); // Log the file object
+    if (!req.file) {
+        console.log("No file uploaded or invalid file type.");
+        return res.status(400).json({
+            success: false,
+            message: "No file uploaded or invalid file type.",
+        });
+    }
+
+  // If valid file is present, call the generatePodcast function
+  try {
+    generatePodcast(req, res);
+} catch (error) {
+    console.error("Error in /api/generate-podcast:", error); // Log the error
+    return res.status(500).json({ error: "Something went wrong!" });
+}
+});
 
 // POST route for transcript-based podcast generation
 app.post("/api/generate-from-transcript", generateFromTranscript);

@@ -12,3 +12,17 @@ const PORT = process.env.PORT || 3030;
 app.listen(PORT, () => {
   console.log(`Listening on PORT ${PORT}`);
 });
+
+
+// Add this temporary test code at the bottom of server.js
+const { invokeGeminiAPI } = require('./api/geminiAPI');
+
+// Self-executing async function to test the API
+(async () => {
+    try {
+        const testResponse = await invokeGeminiAPI("Test message");
+        console.log("API Test Success:", testResponse.slice(0, 100) + "...");
+    } catch (error) {
+        console.error("API Test Failed:", error.message);
+    }
+})();
