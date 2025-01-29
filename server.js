@@ -1,0 +1,1 @@
+-m “-created server.js,  app.js, .env, ;changed package.json - entry point from `app.js` to `server.js`; -updated .env and .gitignore; -correctly reinstalled all backend packages (npm install express multer cors dotenv ffmpeg-static fluent-ffmpeg);-google-generative-ai did not install properly so used npm install @google/generative-ai instead;”
