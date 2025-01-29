@@ -1,13 +1,14 @@
-//import/require server app from app.js
-const app = require("./app.js");
+//server.js
+// import the express app from `app.js`
+const app = require("./app");
 
-//import/require dotenv package and configure it to use environmental variables (process.env) on PORT variable in .env file
-require("dotenv").config()
+// import dotenv package and configure environment variables
+require("dotenv").config();
 
-//Get the PORT variable from the environment (defined in .env file)
-const PORT = process.env.PORT;
+// get the PORT variable from the environment or use default value
+const PORT = process.env.PORT || 3030;
 
-//Make the server app listen on defiend port for any incoming request from app.js
+// start the server and listen for incoming requests
 app.listen(PORT, () => {
-    console.log(`Listening on PORT ${PORT}`);
+  console.log(`Listening on PORT ${PORT}`);
 });
