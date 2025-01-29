@@ -1,0 +1,43 @@
+# Node.js dependencies
+node_modules/
+
+# Build output
+build/
+dist/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/editor configurations
+.vscode/
+.idea/
+
+# Optional: Audio processing tools
+ffmpeg-static/
+fluent-ffmpeg/
+
+# Optional: File upload temporary files
+uploads/
+
+# Optional: Generated audio files
+generated/
+
+# Optional: Compressed audio files
+compressed/
+
+# Optional: Diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Documents
+NOTES.md
+README.md
