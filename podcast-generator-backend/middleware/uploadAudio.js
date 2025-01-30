@@ -30,7 +30,7 @@ const upload = multer({
     fileSize: 5 * 1024 * 1024, // 5MB limit, you can adjust as needed
   },
   fileFilter: (req, file, cb) => {
-    const allowedTypes = /mp3|mp4|wav|ogg/; // Allowed file types
+    const allowedTypes = /mp3|wav|ogg/; // Allowed file types
     const extname = allowedTypes.test(
       path.extname(file.originalname).toLowerCase()
     );
