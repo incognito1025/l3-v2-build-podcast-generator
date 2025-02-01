@@ -18,13 +18,20 @@ Before running the project, ensure that you have the following installed:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/podcast-generator-frontend.git
+   git clone https://github.com/incognito1025/l3-v2-build-podcast-generator
+     npm create vite@4 podcast-generator-frontend
    cd podcast-generator-frontend
    ```
 
 2. Install dependencies:
    ```bash
    npm install
+    npm install react-router-dom React
+    npm install axios
+    npm install redux react-redux
+    npm install styled-components
+    npm install dotenv
+    ```
    ```
 
 3. Run the development server:
@@ -93,13 +100,8 @@ npm run lint
 - `npm run build`: Builds the project for production.
 - `npm run lint`: Runs the linter to check for code style issues.
 
-## License
 
-This project is licensed under the MIT License.
 
----
-
-If you have any questions or issues, feel free to open an issue or pull request on GitHub.
 ```
 
 ### Key Sections in the `README.md`:
@@ -111,5 +113,3 @@ If you have any questions or issues, feel free to open an issue or pull request 
 6. **Linting**: Instructions for running the ESLint linter.
 7. **Scripts**: Common npm scripts for development, building, and linting.
 8. **License**: Licensing information.
-
-Let me know if you need further customization for the `README.md`!
