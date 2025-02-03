@@ -40,4 +40,10 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Documents
 NOTES.md
-README.md
+TREE.md
+ForChatGPT.md
+ToDo.md
+
+# Folder
+AI-Assist
+sessions

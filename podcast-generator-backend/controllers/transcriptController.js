@@ -14,6 +14,11 @@ const generateFromTranscript = async (req, res) => {
         return res.status(400).json({ success: false, message: "No transcript provided." });
     }
 
+    //validation and logging
+    if (!transcript || transcript.length === 0) {
+        return res.status(400).json({ success: false, message: "Transcript content is required." });
+    }
+    
     try {
         // Here, you would use the transcript somehow to generate a podcast script
         const aiResponse = await invokeGeminiAPI(

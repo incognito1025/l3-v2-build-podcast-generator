@@ -18,6 +18,11 @@ const generatePodcast = async (req, res) => {
       });
   }
 
+  //File type validation
+  if (!audioFile || !['audio/mp3', 'audio/wav'].includes(audioFile.mimetype)) {
+    return res.status(400).json({ success: false, message: "Invalid file type. Only MP3 and WAV are supported." });
+}
+
   // Build path to the uploaded file
   const filePath = path.join(__dirname, "../uploads", audioFile.filename); // Use filename from multer
 

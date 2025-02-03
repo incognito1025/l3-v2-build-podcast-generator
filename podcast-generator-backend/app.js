@@ -7,18 +7,22 @@ const path = require("path");
 const upload = require("./middleware/uploadAudio"); // Import the upload middleware
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { generatePodcast } = require("./controllers/podcastController");
-const {
-  generateFromTranscript,
-} = require("./controllers/transcriptController");
+const { generateFromTranscript } = require("./controllers/transcriptController");
 const { errorHandler } = require("./middleware/errorHandler");
 const { invokeGeminiAPI } = require("./api/geminiAPI");
+const advancedAudioRoutes = require('./routes/advanced/audioRoutes');
+require('dotenv').config();  // Ensure dotenv is loaded at the top
+const elevenLabsRoutes = require('./routes/elevenLabsRoutes');
 
 // create instance of express server app
 const app = express();
 
 // middleware for the server app
-app.use(cors()); // enable CORS for cross-origin requests
+// enable CORS for cross-origin requests
+// middleware for the server app
+app.use(cors({ origin: "http://localhost:5173" })); // Adjust for frontend port
 app.use(express.json()); // parse incoming JSON payloads
+
 
 // Test route for Gemini API //Postman responded with {"error":"User input is required"}; curl also worked
 app.post("/api/test-gemini", async (req, res) => {
@@ -37,6 +41,11 @@ app.post("/api/test-gemini", async (req, res) => {
 // Health check route
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to the Podcast Generator");
+});
+
+// Gemini API Home Route (new route)
+app.get("/api/gemini", (req, res) => {
+  res.send("Welcome to the Gemini API. Available route: /test-gemini");
 });
 
 // POST route for audio file processing (handles audio uploads and generation)
@@ -59,8 +68,18 @@ app.post("/api/generate-podcast", upload.single("audio"), (req, res) => {
 }
 });
 
+
+
 // POST route for transcript-based podcast generation
 app.post("/api/generate-from-transcript", generateFromTranscript);
+
+
+//route for audioRoutes
+app.use('/api/advanced', advancedAudioRoutes);
+
+//route for voices
+app.use('/api/elevenlabs', elevenLabsRoutes);
+
 
 // Catch-all route for undefined routes (404 errors)
 app.all("*", (req, res) => {
@@ -72,53 +91,3 @@ app.use(errorHandler);
 
 // Export server app for use in `server.js`
 module.exports = app;
-
-
-/*
-http://localhost:3030/api/test-gemini
-
-{
-    "userInput": "Hello, this is a test message"
-}
-Response:
-{
-    "success": true,
-    "response": "**Hello there!**\n\nThank you for reaching out to us. We're here to help you with your test message.\n\n**Here's what you can do:**\n\n* **Edit your message:** You can change the content of your message by clicking on the text field.\n* **Add attachments:** You can add attachments to your message by clicking on the paperclip icon.\n* **Send your message:** Once you're happy with your message, click on the send button.\n\n**Here are some tips for writing a great test message:**\n\n* Keep it short and to the point.\n* Be clear and concise.\n* Use proper grammar and spelling.\n\n**We're here to help!**\n\nIf you have any further questions, please don't hesitate to contact us. We're here to help you get the most out of your test message.\n\n**Thanks,**\n\nThe Test Message Team"
-}
-
-
-curl http://localhost:3030/
-Welcome to the Podcast Generator% 
-
-curl -X POST \
-  -F "audio=@/path/to/your/audiofile.mp3" \
-
-  Postman = passed
-  http://localhost:3030/api/generate-podcast
-  {
-    "success": false,
-    "message": "Gemini API call failed"
-}
-
-
-bash - success
-curl -X POST \
-  -H "Content-Type: application/json" \
-  -d '{"transcript":"This is a sample transcript that needs to be processed"}' \
-  http://localhost:3030/api/generate-from-transcript
-
-Postman - success
-Input
-{
-    "transcript": "This is a sample transcript that needs to be processed"
-}
-
-
-bash - success
-curl http://localhost:3030/nonexistent-route
-
-
-postman- success
-curl http://localhost:3030/nonexistent-route
-"This is teh error page."
-*/

@@ -1,3 +1,6 @@
+//config/audio-config.js
+//Stores ElevenLabs configurations if needed
+
 module.exports = {
     audio: {
       outputFormats: ['mp3', 'wav', 'ogg'],

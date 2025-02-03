@@ -8,7 +8,7 @@ const {
   addBackgroundMusic,
   combineVoiceTracks,
 } = require("../../controllers/advanced/audioController");
-const { audioConfig } = require("../../config/audio-config");
+const audioConfig = require("../../config/audio-config");
 
 // configure multer for audio uploads
 const storage = multer.memoryStorage();
